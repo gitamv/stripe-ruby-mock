@@ -510,8 +510,23 @@ module StripeMock
     def self.mock_product(params={})
       {
         id: 'mock_product_id',
+        object: 'product',
+        active: nil,
+        attributes: [],
+        caption: nil,
+        deactivate_on: [],
+        description: nil,
+        images: [],
+        livemode: false,
+        metadata: {},
         name: 'Mock Product',
-        type: 'service'
+        package_dimensions: nil,
+        shippable: nil,
+        statement_descriptor: '',
+        type: "service",
+        url: nil,
+        created: 1521652927,
+        updated: 1521652951
       }.merge(params)
     end
 
