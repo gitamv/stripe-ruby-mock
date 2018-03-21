@@ -5,6 +5,7 @@ shared_examples 'Plan API' do
   it "creates a stripe plan" do
     plan = Stripe::Plan.create(
       :id => 'pid_1',
+      :product => 'pr_test00001',
       :name => 'The Mock Plan',
       :amount => 9900,
       :currency => 'USD',
@@ -33,6 +34,7 @@ shared_examples 'Plan API' do
   it "stores a created stripe plan in memory" do
     plan = Stripe::Plan.create(
       :id => 'pid_2',
+      :product => 'pr_test00001',
       :name => 'The Memory Plan',
       :amount => 1100,
       :currency => 'USD',
@@ -40,6 +42,7 @@ shared_examples 'Plan API' do
     )
     plan2 = Stripe::Plan.create(
       :id => 'pid_3',
+      :product => 'pr_test00001',
       :name => 'The Bonk Plan',
       :amount => 7777,
       :currency => 'USD',
@@ -122,6 +125,7 @@ shared_examples 'Plan API' do
     expect {
       Stripe::Plan.create(
         :id => 'pid_1',
+        :product => 'pr_test00001',
         :name => 'The Mock Plan',
         :amount => 99.99,
         :currency => 'USD',
@@ -146,7 +150,7 @@ shared_examples 'Plan API' do
         expect { subject }.to raise_error(Stripe::InvalidRequestError, message)
       end
 
-      it("requires a name") { @name = :name }
+      it("requires a product") { @name = :product }
       it("requires an amount") { @name = :amount }
       it("requires a currency") { @name = :currency }
       it("requires an interval") { @name = :interval }
