@@ -6,16 +6,14 @@ module StripeMock
         currency = params[:currency] || 'usd'
         {
           :id => 'stripe_mock_default_plan_id',
-          :product => {
-            :name => 'StripeMock Default Plan ID'
-          },
+          :product => 'stripe_mock_product',
           :amount => 1337,
           :currency => currency,
           :interval => 'month'
         }.merge(params)
       end
 
-      def create_product(params = {})
+      def create_product(params={})
         Stripe::Product.create create_product_params(params)
       end
 
