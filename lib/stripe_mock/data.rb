@@ -285,9 +285,12 @@ module StripeMock
     def self.mock_subscription(params={})
       StripeMock::Util.rmerge({
         created: 1478204116,
+        application_fee_percent: nil,
         billing: 'charge_automatically',
+        billing_cycle_anchor: 1522101606,
         current_period_start: 1308595038,
         current_period_end: 1308681468,
+        days_until_due: nil,
         status: 'trialing',
         plan: {
           interval: 'month',

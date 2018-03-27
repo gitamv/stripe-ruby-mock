@@ -16,12 +16,19 @@ shared_examples 'Customer Subscriptions' do
       expect(customer.subscriptions.count).to eq(0)
 
       sub = Stripe::Subscription.create({ items: [{ plan: 'silver' }],
-                                          customer: customer.id, metadata: { foo: "bar", example: "yes" } })
+                                          customer: customer.id, metadata: { foo: "bar", example: "yes" },
+                                          billing: 'send_invoice',
+                                          billing_cycle_anchor: '1000000006',
+                                          days_until_due: 16 })
 
       expect(sub.object).to eq('subscription')
       expect(sub.plan.to_hash).to eq(plan.to_hash)
       expect(sub.metadata.foo).to eq( "bar" )
       expect(sub.metadata.example).to eq( "yes" )
+      expect(sub.billing).to eq( "send_invoice" )
+      expect(sub.billing_cycle_anchor).to eq( "1000000006" )
+      expect(sub.days_until_due).to eq( 16 )
+
 
       customer = Stripe::Customer.retrieve(customer.id)
       expect(customer.subscriptions.data).to_not be_empty

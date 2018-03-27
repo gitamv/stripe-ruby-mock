@@ -22,8 +22,9 @@ module StripeMock
         start_time = options[:current_period_start] || now
         params = { customer: cus[:id], current_period_start: start_time, created: created_time }
         params.merge!({ :plan => (plans.size == 1 ? plans.first : nil) })
-        params.merge! options.select {|k,v| k =~ /application_fee_percent|quantity|metadata|tax_percent/}
+        params.merge! options.select {|k,v| k =~ /application_fee_percent|quantity|metadata|tax_percent|billing|billing_cycle_anchor|days_until_due/}
         # TODO: Implement coupon logic
+        # TODO: Validate days_until_due, Only valid for subscriptions where billing=send_invoice
 
         if (((plan && plan[:trial_period_days]) || 0) == 0 && options[:trial_end].nil?) || options[:trial_end] == "now"
           end_time = get_ending_time(start_time, plan)
